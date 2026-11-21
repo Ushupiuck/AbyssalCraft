@@ -1,0 +1,3 @@
+// GTNH, CurseMaven and Modrinth repositories are configured by the convention plugin.
+repositories {
+}

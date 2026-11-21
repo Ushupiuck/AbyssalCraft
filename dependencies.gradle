@@ -1,0 +1,6 @@
+// AbyssalCraft 1.7.10: GTNH variants of the original optional ChickenBones/NEI APIs.
+// No runtime libraries are embedded. Vanilla and Forge APIs are supplied by RFG.
+dependencies {
+    compileOnly("com.github.GTNewHorizons:NotEnoughItems:2.9.12-GTNH:dev")
+    compileOnly("com.github.GTNewHorizons:CodeChickenCore:1.5.1:dev")
+}
