@@ -37,6 +37,22 @@ import com.shinoow.abyssalcraft.common.structures.StructureComponentModded;
 
 public class StructureAbyStrongholdPieces
 {
+
+    /**
+     * Vanilla's findIntersecting accepts List<StructureComponent>, whereas the
+     * stronghold generator tracks the more specific List<Stronghold>. Java's
+     * generic lists are invariant, even though Stronghold extends
+     * StructureComponent. The vanilla method only reads the list, so a
+     * localized type view preserves its original collision checks without
+     * allocating a new list for every candidate structure piece.
+     */
+    @SuppressWarnings("unchecked")
+    private static StructureComponent findStrongholdIntersection(
+            List<Stronghold> pieces, StructureBoundingBox box) {
+        return StructureComponent.findIntersecting(
+                (List<StructureComponent>) (List<?>) pieces, box);
+    }
+
 	private static final StructureAbyStrongholdPieces.PieceWeight[] pieceWeightArray = new StructureAbyStrongholdPieces.PieceWeight[] {new StructureAbyStrongholdPieces.PieceWeight(StructureAbyStrongholdPieces.Straight.class, 40, 0), new StructureAbyStrongholdPieces.PieceWeight(StructureAbyStrongholdPieces.Prison.class, 5, 5), new StructureAbyStrongholdPieces.PieceWeight(StructureAbyStrongholdPieces.LeftTurn.class, 20, 0), new StructureAbyStrongholdPieces.PieceWeight(StructureAbyStrongholdPieces.RightTurn.class, 20, 0), new StructureAbyStrongholdPieces.PieceWeight(StructureAbyStrongholdPieces.RoomCrossing.class, 10, 6), new StructureAbyStrongholdPieces.PieceWeight(StructureAbyStrongholdPieces.StairsStraight.class, 5, 5), new StructureAbyStrongholdPieces.PieceWeight(StructureAbyStrongholdPieces.Stairs.class, 5, 5), new StructureAbyStrongholdPieces.PieceWeight(StructureAbyStrongholdPieces.Crossing.class, 5, 4), new StructureAbyStrongholdPieces.PieceWeight(StructureAbyStrongholdPieces.ChestCorridor.class, 5, 4)
 	{
 
@@ -287,7 +303,7 @@ public class StructureAbyStrongholdPieces
 			/**
 			 * returns false if the Structure Bounding Box goes below 10
 			 */
-			return canStrongholdGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.Stairs(par6, par1Random, structureboundingbox, par5) : null;
+			return canStrongholdGoDeeper(structureboundingbox) && findStrongholdIntersection(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.Stairs(par6, par1Random, structureboundingbox, par5) : null;
 		}
 
 		/**
@@ -380,7 +396,7 @@ public class StructureAbyStrongholdPieces
 			/**
 			 * returns false if the Structure Bounding Box goes below 10
 			 */
-			return canStrongholdGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.Straight(par6, par1Random, structureboundingbox, par5) : null;
+			return canStrongholdGoDeeper(structureboundingbox) && findStrongholdIntersection(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.Straight(par6, par1Random, structureboundingbox, par5) : null;
 		}
 
 		/**
@@ -452,7 +468,7 @@ public class StructureAbyStrongholdPieces
 			/**
 			 * returns false if the Structure Bounding Box goes below 10
 			 */
-			return canStrongholdGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.PortalRoom(par6, par1Random, structureboundingbox, par5) : null;
+			return canStrongholdGoDeeper(structureboundingbox) && findStrongholdIntersection(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.PortalRoom(par6, par1Random, structureboundingbox, par5) : null;
 		}
 
 		/**
@@ -639,7 +655,7 @@ public class StructureAbyStrongholdPieces
 			/**
 			 * returns false if the Structure Bounding Box goes below 10
 			 */
-			return canStrongholdGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.ChestCorridor(par6, par1Random, structureboundingbox, par5) : null;
+			return canStrongholdGoDeeper(structureboundingbox) && findStrongholdIntersection(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.ChestCorridor(par6, par1Random, structureboundingbox, par5) : null;
 		}
 
 		/**
@@ -734,7 +750,7 @@ public class StructureAbyStrongholdPieces
 			/**
 			 * returns false if the Structure Bounding Box goes below 10
 			 */
-			return canStrongholdGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.RoomCrossing(par6, par1Random, structureboundingbox, par5) : null;
+			return canStrongholdGoDeeper(structureboundingbox) && findStrongholdIntersection(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.RoomCrossing(par6, par1Random, structureboundingbox, par5) : null;
 		}
 
 		/**
@@ -875,7 +891,7 @@ public class StructureAbyStrongholdPieces
 			/**
 			 * returns false if the Structure Bounding Box goes below 10
 			 */
-			return canStrongholdGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.StairsStraight(par6, par1Random, structureboundingbox, par5) : null;
+			return canStrongholdGoDeeper(structureboundingbox) && findStrongholdIntersection(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.StairsStraight(par6, par1Random, structureboundingbox, par5) : null;
 		}
 
 		/**
@@ -960,7 +976,7 @@ public class StructureAbyStrongholdPieces
 			/**
 			 * returns false if the Structure Bounding Box goes below 10
 			 */
-			return canStrongholdGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.Prison(par6, par1Random, structureboundingbox, par5) : null;
+			return canStrongholdGoDeeper(structureboundingbox) && findStrongholdIntersection(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.Prison(par6, par1Random, structureboundingbox, par5) : null;
 		}
 
 		/**
@@ -1025,7 +1041,7 @@ public class StructureAbyStrongholdPieces
 			/**
 			 * returns false if the Structure Bounding Box goes below 10
 			 */
-			return canStrongholdGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.LeftTurn(par6, par1Random, structureboundingbox, par5) : null;
+			return canStrongholdGoDeeper(structureboundingbox) && findStrongholdIntersection(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.LeftTurn(par6, par1Random, structureboundingbox, par5) : null;
 		}
 
 		/**
@@ -1378,7 +1394,7 @@ public class StructureAbyStrongholdPieces
 			/**
 			 * returns false if the Structure Bounding Box goes below 10
 			 */
-			return canStrongholdGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.Crossing(par6, par1Random, structureboundingbox, par5) : null;
+			return canStrongholdGoDeeper(structureboundingbox) && findStrongholdIntersection(par0List, structureboundingbox) == null ? new StructureAbyStrongholdPieces.Crossing(par6, par1Random, structureboundingbox, par5) : null;
 		}
 
 		/**
@@ -1456,7 +1472,7 @@ public class StructureAbyStrongholdPieces
 		public static StructureBoundingBox func_74992_a(List<Stronghold> par0List, Random par1Random, int par2, int par3, int par4, int par5)
 		{
 			StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(par2, par3, par4, -1, -1, 0, 5, 5, 4, par5);
-			StructureComponent structurecomponent = StructureComponent.findIntersecting(par0List, structureboundingbox);
+			StructureComponent structurecomponent = findStrongholdIntersection(par0List, structureboundingbox);
 
 			if (structurecomponent == null)
 				return null;

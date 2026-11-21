@@ -224,9 +224,9 @@ public class EntityRemnant extends EntityMob implements IMerchant, IAntiEntity, 
 	 */
 	public void enrage(boolean call){
 		if(call){
-			List<EntityRemnant> friends = worldObj.getEntitiesWithinAABB(getClass(), boundingBox.expand(16D, 16D, 16D));
+			List<? extends EntityRemnant> friends = worldObj.getEntitiesWithinAABB(getClass(), boundingBox.expand(16D, 16D, 16D));
 			if(friends != null){
-				Iterator<EntityRemnant> iter = friends.iterator();
+				Iterator<? extends EntityRemnant> iter = friends.iterator();
 				while(iter.hasNext())
 					iter.next().enrage(false, (EntityLivingBase) entityToAttack);
 			}

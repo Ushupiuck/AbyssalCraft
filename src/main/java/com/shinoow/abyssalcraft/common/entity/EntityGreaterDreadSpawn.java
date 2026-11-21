@@ -188,7 +188,7 @@ public class EntityGreaterDreadSpawn extends EntityMob implements IDreadEntity, 
 				attackEntityWithRangedAttack((EntityLivingBase) entityToAttack, 4);
 
 
-		List<EntityGreaterDreadSpawn> greaterspawns = worldObj.getEntitiesWithinAABB(getClass(), boundingBox.expand(5D, 5D, 5D));
+		List<? extends EntityGreaterDreadSpawn> greaterspawns = worldObj.getEntitiesWithinAABB(getClass(), boundingBox.expand(5D, 5D, 5D));
 
 		if(!worldObj.isRemote)
 			if(!greaterspawns.isEmpty())
